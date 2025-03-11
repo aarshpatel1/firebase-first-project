@@ -1,5 +1,6 @@
 import { Button, Popover, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
+import TrueFocus from "./TrueFocus";
 
 export default function SignIn() {
 	const [password, setPassword] = useState("");
@@ -70,7 +71,15 @@ export default function SignIn() {
 
 	return (
 		<form className="flex max-w-md flex-col gap-4 w-1/5">
-			<h1 className="text-3xl text-center">Sign In</h1>
+			{/* <h1 className="text-3xl text-center">Sign In</h1> */}
+			<TrueFocus
+				sentence="Sign In"
+				manualMode={false}
+				blurAmount={2.5}
+				borderColor="aqua"
+				animationDuration={0.4}
+				pauseBetweenAnimations={2.5}
+			/>
 			<div>
 				<div className="mb-2 block">
 					<Label htmlFor="email1" value="Your email" />
