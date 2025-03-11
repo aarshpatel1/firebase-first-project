@@ -5,7 +5,9 @@ import { DarkThemeToggle, Flowbite } from "flowbite-react";
 
 createRoot(document.getElementById("root")).render(
 	<Flowbite>
+		<div className="fixed top-4 right-4">
+			<DarkThemeToggle />
+		</div>
 		<App />
-		<DarkThemeToggle />
 	</Flowbite>
 );
