@@ -3,7 +3,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import TrueFocus from "../components/TrueFocus";
 import PasswordStrengthPopover from "../components/PasswordStrengthPopover";
-import { useAuth } from "../authContext/AuthContext";
+import { useAuth, handleAuthError } from "../authContext/AuthContext";
 
 export default function SignUp() {
 	const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ export default function SignUp() {
 			navigate("/dashboard");
 		} catch (error) {
 			setError(handleAuthError(error));
-			alert(error);
+			console.log(error);
 		}
 		setLoading(false);
 	}

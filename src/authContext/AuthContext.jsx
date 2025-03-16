@@ -48,7 +48,9 @@ export function AuthProvider({ children }) {
 		try {
 			await signInWithPopup(auth, provider);
 		} catch (error) {
-			throw error;
+			const errorMessage = handleAuthError(error);
+			setError(errorMessage);
+			throw new Error(errorMessage);
 		}
 	}
 

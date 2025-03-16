@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import TrueFocus from "../components/TrueFocus";
-import { useAuth } from "../authContext/AuthContext";
+import { useAuth, handleAuthError } from "../authContext/AuthContext";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ export default function SignIn() {
 			navigate("/dashboard");
 		} catch (error) {
 			setError(handleAuthError(error));
-			alert(error);
+			console.log(error);
 		}
 		setLoading(false);
 	}
@@ -78,6 +78,7 @@ export default function SignIn() {
 						autoComplete="off"
 					/>
 				</div>
+				{error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 				<p className="text-sm text-gray-600 dark:text-gray-400">
 					If you don't have an account,{" "}
 					<Link
