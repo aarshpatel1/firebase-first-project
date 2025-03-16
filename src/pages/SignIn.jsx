@@ -1,6 +1,7 @@
 import { Button, Popover, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import TrueFocus from "../components/TrueFocus";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
 	const [password, setPassword] = useState("");
@@ -352,6 +353,18 @@ export default function SignIn() {
 				<Checkbox id="remember" />
 				<Label htmlFor="remember">Remember me</Label>
 			</div> */}
+
+				<p className="text-sm text-gray-600 dark:text-gray-400">
+					If you don't have an account,{" "}
+					<Link
+						to="/signup"
+						className="ml-1 font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+					>
+						Sign Up
+					</Link>
+					.
+				</p>
+
 				<Button type="submit">Sign In</Button>
 			</form>
 		</main>
