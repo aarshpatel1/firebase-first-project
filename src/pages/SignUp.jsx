@@ -107,6 +107,7 @@ export default function SignUp() {
 						value={confirmPassword}
 						onChange={handleChangeConfirmPassword}
 						autoComplete="off"
+						color={!passwordMatch ? "failure" : "gray"}
 					/>
 					{!passwordMatch && (
 						<p className="text-red-500 text-sm mt-2">Passwords do not match</p>
