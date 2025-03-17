@@ -3,43 +3,48 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import TrueFocus from "../components/TrueFocus";
 import { useAuth, handleAuthError } from "../authContext/AuthContext";
+import { HiInformationCircle } from "react-icons/hi";
+import { Alert } from "flowbite-react";
 
 export default function SignIn() {
+	// State variables to manage email, password, loading state, and error messages
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
+	// Get login and googleSignIn functions from the authentication context
 	const { login, googleSignIn } = useAuth();
 	const navigate = useNavigate();
 
+	// Function to handle Google sign-in
 	async function handleGoogleSignIn() {
 		try {
 			await googleSignIn();
-			navigate("/dashboard");
+			navigate("/dashboard"); // Navigate to the dashboard on successful sign-in
 		} catch (error) {
-			setError(handleAuthError(error));
+			setError(handleAuthError(error)); // Set error message if sign-in fails
 			console.log(error);
 		}
 	}
 
-	async function handleSubmit(event) {
-		event.preventDefault();
-
+	// Function to handle form submission for email/password sign-in
+	async function handleSubmit(e) {
+		e.preventDefault(); // Prevent default form submission behavior
 		try {
 			setError("");
 			setLoading(true);
 			await login(email, password);
-			navigate("/dashboard");
+			navigate("/dashboard"); // Navigate to the dashboard on successful sign-in
 		} catch (error) {
-			setError(handleAuthError(error));
-			console.log(error);
+			setError(error.message); // Set error message if sign-in fails
+			console.log("Email and password login error: ", error.message);
 		}
 		setLoading(false);
 	}
 
 	return (
-		<main className="flex items-center justify-center h-screen">
+		<main className="flex items-center justify-center h-screen position-relative">
 			<form
 				className="flex max-w-md flex-col gap-4 w-1/5"
 				onSubmit={handleSubmit}
@@ -78,7 +83,6 @@ export default function SignIn() {
 						autoComplete="off"
 					/>
 				</div>
-				{error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 				<p className="text-sm text-gray-600 dark:text-gray-400">
 					If you don't have an account,{" "}
 					<Link
@@ -96,6 +100,15 @@ export default function SignIn() {
 					Sign In with Google
 				</Button>
 			</form>
+			{error && (
+				<Alert
+					color="failure"
+					icon={HiInformationCircle}
+					className="fixed bottom-4 right-4 w-1/3"
+				>
+					<span className="font-medium">Login Alert!</span> {error}
+				</Alert>
+			)}
 		</main>
 	);
 }

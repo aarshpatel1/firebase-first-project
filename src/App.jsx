@@ -8,25 +8,23 @@ import PrivateRoute from "./authContext/PrivateRoute";
 
 function App() {
 	return (
-		<>
-			<BrowserRouter>
-				<AuthProvider>
-					<Routes>
-						<Route
-							path="/dashboard"
-							element={
-								<PrivateRoute>
-									<Dashboard />
-								</PrivateRoute>
-							}
-						/>
-						<Route path="/signup" element={<SignUp />} />
-						<Route path="/signin" element={<SignIn />} />
-						<Route path="/" element={<Navigate to="/signin" />} />
-					</Routes>
-				</AuthProvider>
-			</BrowserRouter>
-		</>
+		<BrowserRouter>
+			<AuthProvider>
+				<Routes>
+					<Route
+						path="/dashboard"
+						element={
+							<PrivateRoute>
+								<Dashboard />
+							</PrivateRoute>
+						}
+					/>
+					<Route path="/signup" element={<SignUp />} />
+					<Route path="/signin" element={<SignIn />} />
+					<Route path="/" element={<Navigate to="/signin" />} />
+				</Routes>
+			</AuthProvider>
+		</BrowserRouter>
 	);
 }
 

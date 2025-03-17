@@ -6,6 +6,7 @@ import PasswordStrengthPopover from "../components/PasswordStrengthPopover";
 import { useAuth, handleAuthError } from "../authContext/AuthContext";
 
 export default function SignUp() {
+	// State variables to manage email, password, confirm password, loading state, and error messages
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,30 +14,36 @@ export default function SignUp() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
+	// Get signup and googleSignIn functions from the authentication context
 	const { signup, googleSignIn } = useAuth();
 	const navigate = useNavigate();
 
+	// Effect to check if the password and confirm password match
 	useEffect(() => {
 		setPasswordMatch(password === confirmPassword);
 	}, [password, confirmPassword]);
 
+	// Function to handle change in confirm password input
 	const handleChangeConfirmPassword = (e) => {
 		setConfirmPassword(e.target.value);
 	};
 
+	// Function to handle Google sign-in
 	async function handleGoogleSignIn() {
 		try {
 			await googleSignIn();
-			navigate("/dashboard");
+			navigate("/dashboard"); // Navigate to the dashboard on successful sign-in
 		} catch (error) {
-			setError(handleAuthError(error));
+			setError(handleAuthError(error)); // Set error message if sign-in fails
 			console.log(error);
 		}
 	}
 
+	// Function to handle form submission for email/password sign-up
 	async function handleSubmit(event) {
 		event.preventDefault();
 
+		// Check if passwords match
 		if (password !== confirmPassword) {
 			return setError("Passwords do not match");
 		}
@@ -45,9 +52,9 @@ export default function SignUp() {
 			setError("");
 			setLoading(true);
 			await signup(email, password);
-			navigate("/dashboard");
+			navigate("/dashboard"); // Navigate to the dashboard on successful sign-up
 		} catch (error) {
-			setError(handleAuthError(error));
+			setError(handleAuthError(error)); // Set error message if sign-up fails
 			console.log(error);
 		}
 		setLoading(false);
